@@ -4,7 +4,7 @@ import LandingPage from './pages/LandingPage/LandingPage'
 import { BrowserRouter as Router, Switch, Route  } from 'react-router-dom'
 
 import Login from './pages/login/Login'
-import Register from './pages/Register/Register'
+// import Register from './pages/Register/Register'
 import Forming from './components/Form/Forming'
 import Former from './components/Form/Former'
 import AppState from './context/AppState';
@@ -12,7 +12,7 @@ import ForgetPassword from './pages/ForgetPassword/ForgetPassword'
 import PasswordAssitance from './pages/ForgetPassword/PasswordAssitance'
 import ResetPassword from './pages/ForgetPassword/ResetPassword'
 import ResetSuccessful from './pages/ForgetPassword/ResetSuccessful'
-import Homepage from './pages/Homepage/Homepage'
+import QuestionFeed from './pages/QuestionFeed/QuestionFeed'
 import MediaPage from './pages/MediaPage/MediaPage'
 import TestNav from './components/Testing/Test';
 import Profile from './pages/ProfilePage/Profile'
@@ -22,31 +22,40 @@ import {useSelector, useDispatch} from 'react-redux'
 import CommentPage from './pages/CommentPage/Comment'
 import AskQuestionTest from './pages/AskQuestion/AskQuestionTest';
 import { fetchQuestions } from "./reducers/actions/questions";
+import QuestionPage from "./pages/QuestionPage/QuestionPage";
+import { getUsersDetails } from "./reducers/actions/users";
+import AuthPage from "./pages/AuthPage/AuthPage";
+import FormikInput from "./pages/formik";
 // import Demo from "./components/demo";
 
 
 
 
 const App = () => {
+const dispatch = useDispatch()
+  useEffect(() => {
+    dispatch(getUsersDetails())
+  },[dispatch])
 
-  const access_token = localStorage.getItem('token');
-  console.log(`access_token`, access_token)
   return (
-    <AppState>
+    <div>
+     <AppState>
+
     <Router>
       <Switch>
       <Route exact path="/" component={LandingPage} />
-      {/* <Route exact path="/demo" component={Demo} /> */}
-        <Route exact path="/forgetPassword" component={ForgetPassword} />
+      <Route exact path="/auth" component={AuthPage} />
+      <Route exact path="/form" component={FormikInput} />
+      <Route exact path="/forgetPassword" component={ForgetPassword} />
         <Route exact path="/passwordAssitance" component={PasswordAssitance} />
         <Route exact path="/resetPassword" component={ResetPassword} />
         <Route exact path="/resetSuccessful" component={ResetSuccessful} />
-        <Route exact path="/home" component={Homepage} />
+        <Route exact path="/question-feeds" component={QuestionFeed} />
         <Route exact path="/media" component={MediaPage} />
         <Route exact path="/test" component={TestNav} />
         
         <Route exact path="/login" component={Login} />
-        <Route exact path="/register" component={Register} />
+        {/* <Route exact path="/register" component={Register} /> */}
         <Route exact path="/form" component={Forming} />
         <Route exact path="/profile" component={Profile} />
         <Route exact path="/comment" component={CommentPage} />
@@ -59,8 +68,17 @@ const App = () => {
       
       </Switch>
       </Router>
-    </AppState>
+      </AppState>
+      </div>
+   
   )
 }
 
 export default App
+
+
+
+/// image on ask question 
+/// deploy 
+// authenticate the app
+// work on the responsiveness

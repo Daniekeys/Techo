@@ -16,13 +16,9 @@ import ProfilleImgModal from '../../components/Modal/ProfileImgModal'
 const DesktopProfile = () => {
     const {aboutData} = useContext(GlobalContext)
 const data = false;
-const dataItem = localStorage.getItem('user');
-const {userEmail,imageUrl,name,} = JSON.parse(dataItem);
+
 const [open, setOpen] = useState(false);
 
-let personName = name; 
-let personEmail = userEmail;
-let personImage = imageUrl; 
 const handleOpen = () => {
     setOpen(true);
   };
@@ -38,13 +34,13 @@ const handleOpen = () => {
             <Grid container className={classes.profileSection}>
             <Grid item className={classes.profileLeft} sm={3}>
 
-            <Avatar src={personImage} className={classes.profileAvatar} onClick={handleOpen} />
+            {/* <Avatar src={personImage} className={classes.profileAvatar} onClick={handleOpen} /> */}
             <ProfilleImgModal open={open} handleClose={handleClose} setOpen={setOpen}/>
             </Grid>
             <Grid item className={classes.profileRight} sm={9} >
                 <div className={classes.profileDetails}>
                     <Typography variant="h3" className={classes.profileName} > 
-                    {personName}
+                    {/* {personName} */}personName
                     </Typography>
                     <Typography variant="body2" className={classes.profileStory} > 
                     {aboutData ? `${aboutData}` : "Kindly update Your profile in the about session" } 
@@ -52,7 +48,8 @@ const handleOpen = () => {
                     </Typography>
 
                     <Typography variant="body1" className={classes.profileRole} > 
-                    {data ? "Name" : `${personEmail}`}
+                    {/* {data ? "Name" : `${personEmail}`} */}
+                    Name
                     </Typography> 
             
                     <div className={classes.followContainer}>

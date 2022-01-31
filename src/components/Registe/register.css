@@ -1,0 +1,13 @@
+.btn {
+  background: linear-gradient(180deg, #100e86 0%, #00b4d7 193.28%);
+  border-radius: 10px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 20px 175px;
+  color: white;
+  margin-top:15px;
+  text-transform: uppercase;
+  width: 100%;
+}

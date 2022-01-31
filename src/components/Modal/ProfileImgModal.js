@@ -82,9 +82,9 @@ const useStyles = makeStyles((theme) => ({
 
 export default function SimpleModal({handleOpen, handleClose,open,setOpen}) {
   const classes = useStyles();
-  const dataItem = localStorage.getItem('user');
-const {imageUrl,name,} = JSON.parse(dataItem);
-const [prevImg, setPrevImg] = useState(imageUrl);
+//   const dataItem = localStorage.getItem('user');
+// const {imageUrl,name,} = JSON.parse(dataItem);
+// const [prevImg, setPrevImg] = useState(imageUrl);
 
 
   // getModalStyle is not a pure function, we roll the style only on the first render
@@ -95,23 +95,24 @@ const [prevImg, setPrevImg] = useState(imageUrl);
   const files = e.target.files;
   Array.from(files).map((file) => { 
     // URL.createObjectURL(file);
-    setPrevImg(URL.createObjectURL(file));
+    // setPrevImg(URL.createObjectURL(file));
   })
   const data = new FormData();
   data.append('image', files[0]);
   // axios.post('/api/users/upload', data)
-  localStorage.setItem('user', JSON.stringify({
-    imageUrl: prevImg,  
+  // localStorage.setItem('user', JSON.stringify({
+  //   imageUrl: prevImg,  
 
-  }));
+  // }));
 
 
  }
- const handleImageSave = () => {
-  localStorage.setItem('user', JSON.stringify({
-    imageUrl: prevImg,
 
-  }));
+ const handleImageSave = () => {
+  // localStorage.setItem('user', JSON.stringify({
+  //   imageUrl: prevImg,
+
+  // }));
   setOpen(false);
 
   }
@@ -128,7 +129,7 @@ const [prevImg, setPrevImg] = useState(imageUrl);
         </div>
         <div className={classes.imgContainer}>
 
-        <Avatar alt={name} src={prevImg} className={classes.Avatar} />
+        {/* <Avatar alt={name} src={prevImg} className={classes.Avatar} /> */}
         </div>
         <div className={classes.modalTop}>
       

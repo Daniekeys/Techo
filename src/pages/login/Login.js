@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import useStyles from "./styles";
 import { Grid, Typography, Button } from "@material-ui/core";
 import svg from "../../assets/signupsvg.jpg";
@@ -17,6 +17,7 @@ import { onBoardingSliderData } from "../../Helpers/onBoardingSliderData";
 import Slider from "../../components/Slider";
 
 const Login = () => {
+  const [loading, setLoading] = useState(false);
   const { loginValues, setUserData } = useContext(AppContext);
 
   const history = useHistory();
@@ -25,31 +26,10 @@ const Login = () => {
     window.scroll(0, 0);
   }, []);
 
-  const handleSubmit = () => {
-    var myHeaders = new Headers();
-    myHeaders.append("Content-Type", "application/json");
-    myHeaders.append("Cookie", "sessionid=2b98u3jug5uwl9fo5ypars8eli7ejsti");
-
-    var raw = JSON.stringify({
-      email: "starlordflash@gmail.com",
-      password: "ddaanniieel",
-    });
-
-    var requestOptions = {
-      method: "POST",
-      headers: myHeaders,
-      body: raw,
-      redirect: "follow",
-    };
-
-    fetch("http://techsemester.tk/api/users/auth/login/", requestOptions)
-      .then((response) => response.text())
-      .then((result) => console.log(result))
-      .catch((error) => console.log("error", error));
-  };
-
+ 
   const handleLogin = async (e) => {
     //login function
+    setLoading(true);
     e.preventDefault();
     const { email, password } = loginValues; //get values from context
 
@@ -58,14 +38,18 @@ const Login = () => {
       const response = await userLogin(item);
       console.log(`response`, response);
       console.log(`token`, response?.data?.access_token);
+      setLoading(false);
       if (response.status === 200) {
         localStorage.setItem("token", response?.data?.access_token);
         localStorage.setItem("refreshToken", response.data.refresh_token);
         setUserData(response.data.user);
-       
-        history.push("/home"); //redirect to dashboard page if login is successful
+        setLoading(false);
+
+        history.push("/question-feeds"); //redirect to dashboard page if login is successful
+        return;
       }
     } catch (error) {
+      setLoading(false);
       console.log(`error`, error);
     }
   };
@@ -126,12 +110,13 @@ const Login = () => {
               <div className={classes.formI}>
                 <LoginPasswordInput placeholder="Password" name="password" />
               </div>
-              <Button
-                className={classes.mainRegBtn}
-                onClick={handleLogin}
-                // component={Link} to="/home"
-              >
-                Login
+              <Button className={classes.mainRegBtn} onClick={handleLogin}>
+                {loading ? (
+                  <div className="animate-spin border-2 border-dotted my-2 border-white w-7 h-7 rounded-full" />
+                ) : (
+                  <p>Login</p> 
+                )}
+                 
               </Button>
               <div className="flex items-center justify-between my-3">
                 <p className="text-lg text-textPrimary font-semibold">
@@ -142,7 +127,7 @@ const Login = () => {
                   >
                     Register
                   </Link>
-                </p>
+                </p> 
                 <Link
                   to="/forgetPassword"
                   className="text-lg text-primaryColor font-semibold"

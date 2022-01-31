@@ -1,16 +1,14 @@
-import React from 'react'
-import {Button as CustomBtn} from '@material-ui/core'
+import React from "react";
 
+const Button = ({ rounded, onClick, children,sm }) => {
+  return (
+    <button
+      onClick={onClick}
+      className={`${rounded && "rounded-full"} ${sm && "text-sm"} ease-in-out duration-300 px-8 py-2 text-white font-semibold bg-googleBlue hover:bg-darkGoogleBlue `}
+    >
+      {children}
+    </button>
+  );
+};
 
-const Button = ({path,bgcColor, size, type, onClick}) => {
-
-    return (
-        <CustomBtn 
-        
-        >
-            
-        </CustomBtn>
-    )
-}
-
-export default Button
+export default Button;

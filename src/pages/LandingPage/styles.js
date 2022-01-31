@@ -10,7 +10,7 @@ container:{
     height:'auto',
     margin:'auto',
 
-    backgroundColor:'#f5f6ff',
+    backgroundColor:'white',
     padding:'2rem 3rem',
     maxWidth:'1200px',
     [theme.breakpoints.down('sm')]:{
