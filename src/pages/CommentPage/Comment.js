@@ -34,6 +34,7 @@ const classes = useStyles();
 setDataId(id);
 
 const data  = Demodata[dataId];
+const {title, description, tags, category, date, author, comments, likes, dislikes, views, postId, image} = data;                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   
 
 
 
