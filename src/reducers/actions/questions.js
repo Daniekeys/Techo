@@ -3,13 +3,13 @@ import { type } from "../types/types";
 
 export const fetchQuestions = () => async (dispatch) => {
   try {
-    const res = await axiosInstance.get("api/question/");
-    console.log(`fetchQuestions`, res);
-    // if (data) {
-    //   dispatch({ type: type.GET_QUESTIONS, payload: data?.results });
-    //   return;
-    // }
+    const {data} = await axiosInstance.get("api/question/random");
+    console.log(`fetchQuestions`, data);
+    if (data) {
+      dispatch({ type: type.GET_QUESTIONS, payload: data?.results });
+      return;
+    }
   } catch (err) {
-    console.log(`err`, err);
+    console.log(`err`, err); 
   }
 };

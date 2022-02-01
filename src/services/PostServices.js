@@ -18,13 +18,20 @@ import axios from 'axios'
 // }
 
 
-export const userLogin = (post) => {
+export const userLogin =  (post) => {
+   
     return axios.post('api/users/auth/login/', post)
 }
 
-export const userRegister = (info) => {
-    return axios.post('api/users/auth/register/', info)
+export const userRegister = async (info) => {
+    try{
+        return axios.post('api/users/auth/register/', info)
+
+    } catch(error){
+        console.log(`error`, error)
+    }
 }
+
 export const getCountry = async () => {
     
     const res =  await axiosInstance.get('api/users/countries')

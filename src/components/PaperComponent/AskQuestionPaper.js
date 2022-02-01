@@ -7,18 +7,20 @@ import useStyles from './styles';
 const AskQuestionPaper = () => {
     const classes = useStyles();
     
-    const data = localStorage.getItem('user');
-    const {imageUrl,name,} = JSON.parse(data);
-    const photoURL = imageUrl;
+    // const data = localStorage.getItem('user');
+    // const {imageUrl,name,} = JSON.parse(data);
+    // const photoURL = imageUrl;
+
     return (
         <>
       <Paper elevation={0} className={classes.askPaperContainer}>
       <div className={classes.profileItemContainer}>
 
 
-<Avatar src={photoURL} alt="profile pick" className={classes.askquestionImg} />
+{/* <Avatar src={photoURL} alt="profile pick" className={classes.askquestionImg} /> */}
   <Typography variant="h6" >
-      {name}
+      {/* {name} */}
+      name
   </Typography>
 </div>
 

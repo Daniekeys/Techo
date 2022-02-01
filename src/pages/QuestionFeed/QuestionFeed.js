@@ -17,14 +17,13 @@ import TagsPaper from "../../components/PaperComponent/TagsPaper";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchQuestions } from "../../reducers/actions/questions";
 
-const HomePage = () => {
+const QuestionFeed = () => {
   const dispatch = useDispatch();
   const { getQuestions } = useSelector((state) => state.getQuestions);
 
   console.log(`getQuestions`, getQuestions);
   useEffect(() => {
     dispatch(fetchQuestions());
-    // console.log(`fectQUESTION`)
   }, [dispatch]);
 
   console.log(`getQuestions`, getQuestions);
@@ -38,7 +37,8 @@ const HomePage = () => {
   return (
     <>
       <div className={classes.root}>
-        <Navbar setProfileShow={setProfileShow} profileShow={profileShow} />
+        <Navbar />
+
         <Grid className={classes.container} container>
           <Grid item md={3} className={classes.left}>
             <div className={classes.profileSection}>
@@ -51,8 +51,6 @@ const HomePage = () => {
             {getQuestions.map((questions, index) => (
               <PostCard key={index} questions={questions} />
             ))}
-
-            <PostCard />
           </Grid>
           <Grid item xs={0} md={3} className={classes.right}>
             {profileShow ? <ProfilePaper /> : <TagsPaper />}
@@ -63,4 +61,4 @@ const HomePage = () => {
   );
 };
 
-export default HomePage;
+export default QuestionFeed;

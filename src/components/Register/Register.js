@@ -12,12 +12,12 @@ import svg from "../../assets/transparent1.png";
 import linkedin from "../../assets/linkedin.jpg";
 import google from "../../assets/google.jpg";
 import { Link, useHistory } from "react-router-dom";
-import TextInput from "../../components/Input/TextInput";
+import TextInput from "../Input/TextInput";
 import AppContext from "../../context/app-context";
-import PasswordInput from "../../components/Input/PasswordInput";
+import PasswordInput from "../Input/PasswordInput";
 import { userRegister } from "../../services/PostServices";
 import flag from "../../assets/flag.svg";
-import Slider from "../../components/Slider";
+import Slider from "../Slider";
 import countryData from "../../Helpers/CountryState.json";
 
 const Register = () => {
@@ -35,80 +35,63 @@ const Register = () => {
   const [dob, setDob] = useState("");
   const [gender, setGender] = useState("");
   const [education, setEducation] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const { values, setUserData } = useContext(AppContext);
 
   const history = useHistory();
 
   const handleRegister = async (e) => {
-    //login function
-    e.preventDefault();
+    try {
+      setLoading(true);
+      e.preventDefault();
 
-    const userData = {
-      email,
-      password1,
-      password2,
-      first_name,
-      last_name,
-      phone,
-    };
-    console.log(`userData`, userData);
-    const response = await userRegister(userData);
-    console.log(response);
-    console.log(response?.status);
-    if (response?.status === 201) {
-      history.push("/home")
-      setUserData(response?.data?.detail);
-    } else {
-      alert("Invalid email or password");
+      const userData = {
+        email,
+        password1,
+        password2,
+        first_name,
+        last_name,
+        phone,
+      };
+      // console.log(`userData`, userData);
+
+      const response = await userRegister(userData);
+      console.log(response);
+      console.log(response?.status);
+      if (response?.status === 201) {
+        setLoading(false);
+        history.push("/question-feeds");
+        setUserData(response?.data?.detail);
+      } else {
+        alert(response);
+      }
+    } catch (error) {
+      setLoading(false);
+
+      console.log(`error`, error);
     }
   };
 
   const classes = useStyles();
 
-  // const regions = Object.entries(countryData).map((data) => {
-  //   data[1].regions.map((region) =>
-  //    region.name );
-  // });
-
-  // console.log(`regions`, regions)
+  
   return (
     <>
-      <Grid container className={classes.container}>
-        <Grid item xs={12} sm={6} className={classes.svgcenter}>
-          <Slider />
-        </Grid>
+      {/* <Grid container >
+     
         <Grid item xs={12} sm={6} className={classes.center}>
-          <div className={classes.loginButton}>
-            <Button
-              component={Link}
-              to="/register"
-              className={classes.registerBtn}
-            >
-              REGISTER
-            </Button>
-            <Button component={Link} to="/login" className={classes.loginBtn}>
-              LOGIN
-            </Button>
-          </div>
-          <div className={classes.registrationContainer}>
-            <p className="text-2xl mt-8 ">Register with your social account</p>
-            <div className={classes.socialContainer}>
-              <Link to="/google">
+        */}
+          <div >
+            {/* <div className={classes.socialContainer}>
                 <img alt="google" src={google} className={classes.socialIcon} />
-              </Link>
-              <Link to="/linkedin">
                 <img
                   alt="google"
                   src={linkedin}
                   className={classes.socialIcon}
                 />
-              </Link>
-            </div>
-            <Typography variant="h4" className={classes.create}>
-              Create your account
-            </Typography>
-
+            </div> */}
+     
             <div className="flex flex-col w-full ">
               <input
                 type="first_name"
@@ -133,82 +116,61 @@ const Register = () => {
                 onChange={(e) => setEmail(e.target.value)}
               />
               <input
-                type="text"
+                type="password"
                 placeholder="Password"
                 value={password1}
                 className="  p-3 my-2 rounded-md w-full outline-none "
                 onChange={(e) => setPassword1(e.target.value)}
               />
               <input
-                type="text"
+                type="password"
                 placeholder="Confirm password"
                 value={password2}
                 className="  p-3 my-2 rounded-md w-full outline-none "
                 onChange={(e) => setPassword2(e.target.value)}
               />
 
-<input
+              <input
                 type="text"
                 placeholder="Phone number"
                 value={phone}
                 className="  p-3 my-2 rounded-md w-full outline-none "
                 onChange={(e) => setPhone(e.target.value)}
               />
-
-              {/* <div className="flex w-full items-center  my-2 justify-between">
-                <div
-                  style={{ width: "47%" }}
-                  className="flex items-center overflow-hidden rounded-md justify-between bg-white p-4"
-                >
-                  <img className="w-4 h-4 mr-3 " src={flag} alt="" />
-                  <select className="outline-none  w-10/12 cursor-pointer">
-                    <option>Country</option>
-                    {Object.entries(countryData).map((data, i) => (
-                      <option key={i} value={data[1].countryName}>
-                        {" "}
-                        {data[1].countryName}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-
-                <div
-                  style={{ width: "47%" }}
-                  className="flex items-center rounded-md justify-between bg-white p-4"
-                >
-                  <select className="outline-none cursor-pointer flex-1">
-                 
-
-                    <option>State</option>
-                    <option>Lagos</option>
-                    <option>Colorado</option>
-                    <option>UK</option>
-                  </select>
-                </div>
-              </div> */}
             </div>
 
             <button
-              className="cursor-pointer text-2xl uppercase  p-3 w-full rounded-md bg-primaryColor hover:bg-darkPrimaryColor text-white mt-6"
+              className="cursor-pointer text-2xl uppercase flex items-center justify-center  p-3 w-full rounded-md bg-primaryColor hover:bg-darkPrimaryColor text-white mt-6"
               onClick={handleRegister}
             >
-              Register
+              {loading ? (
+                <div className="animate-spin border-2 border-dotted my-1 border-white w-7 h-7 rounded-full" />
+              ) : (
+                <p>Register</p>
+              )}
             </button>
 
+         
             <div className="flex items-center justify-between my-3">
               <p className="text-lg text-textPrimary font-semibold">
                 Have account already?{" "}
-                <Link className="text-lg text-primaryColor font-semibold">
+                <Link
+                  to="/login"
+                  className="text-lg text-primaryColor font-semibold"
+                >
                   Login
                 </Link>
               </p>
-              <Link className="text-lg text-primaryColor font-semibold">
+              <Link
+                to="/forgetPassword"
+                className="text-lg text-primaryColor font-semibold"
+              >
                 Forgot your password?
               </Link>
             </div>
           </div>
-        </Grid>
-      </Grid>
+        {/* </Grid>
+      </Grid> */}
     </>
   );
 };

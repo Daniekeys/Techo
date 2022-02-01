@@ -9,7 +9,7 @@ const userReducer = (state = initial, action) =>{
         case type.CREATE_USER:
             return{
                 ...state,
-                user:action
+                user:action.payload
             }
     
         default:

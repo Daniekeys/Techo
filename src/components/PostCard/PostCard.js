@@ -20,29 +20,33 @@ import AskComment from "../Comment/AskComment";
 import AddComments from "../AddComments";
 import useStyles from "./styles";
 import { useSelector } from "react-redux";
+import moment from "moment";
 
 export default function PostCard({ questions }) {
   const [openComment, setOpenComment] = useState(false);
-  // const {body} = questions
-  console.log(`questions`, questions?.body);
+  // console.log(`questions`, questions?.user);
   const classes = useStyles();
-  let likeNo = "230.";
-  let commentNo = "30";
+
+  // create_date
 
   const handleCommet = () => {
     setOpenComment(!openComment);
   };
   return (
     <div>
-      <div className="bg-white p-5 shadow-lg">
+      <div className="bg-white p-5 shadow-lg m-5">
         {/* <***********avatar name date upvote and down vote****************> */}
         <div className="flex items-center justify-between">
           {/* <***********avatar name and date ****************> */}
           <div className="flex items-center justify-center">
             <img src={pics} alt="" className="h-12 w-12 rounded-full mr-3" />
             <div className="">
-              <p className="text-lg font-bold ">Abdusalm Fatai</p>
-              <p className="">sep 28, 2021</p>
+              <p className="text-lg font-bold capitalize">{questions?.user?.first_name || "Ayeni"}</p>
+              <p className="">
+                {/* {moment(questions?.create_date).fromNow()} */}
+               {/* { moment().format(questions?.create_date)} */}
+               {moment(questions?.create_date).format('ll')}
+                </p>
             </div>
           </div>
 
@@ -65,7 +69,7 @@ export default function PostCard({ questions }) {
         </div>
 
         {/* <*******divider**********> */}
-        <div className="h-px w-full opacity-50 bg-dividerBg my-6" />
+        <div className="h-px w-full opacity-50 bg-textPrimary my-6" />
 
         {/* <***********image number of comments ****************> */}
         <div className="">
@@ -86,7 +90,7 @@ export default function PostCard({ questions }) {
         </div>
 
         {/* <*******divider**********> */}
-        <div className="h-px w-full opacity-50 bg-dividerBg my-6" />
+        <div className="h-px w-full opacity-50 bg-textPrimary my-6" />
 
         {/* <***********like comments and share ****************> */}
         <div className="flex items-center cursor-pointer justify-between w-5/12 md:w-7/12">
@@ -113,112 +117,6 @@ export default function PostCard({ questions }) {
       </div>
     </div>
 
-    // <Card className={classes.root}>
-    //   <CardActionArea>
-    //     <CardContent>
-
-    //       {/* //////// Avatar, header and vote flex-row container */}
-    //       <div className={classes.cardHead}>
-    //         <div className={classes.cardHeadLeft}>
-    //           <Avatar
-    //             src="https://res.cloudinary.com/www-daniekeys-com/image/upload/v1605272141/use6_xyqgs4.jpg"
-    //             alt="profile pick"
-    //             className={classes.posterImg}
-    //           />
-
-    //           {/* //////////header and date div */}
-    //           <div className={classes.nameContainer}>
-    //             <Typography
-    //               gutterBottom
-    //               variant="h6"
-    //               component="h6"
-    //               className={classes.fullName}
-    //             >
-    //               Ayeni Daniel
-    //             </Typography>
-    //             <Typography variant="body2" color="textSecondary" component="p">
-    //               Sept.21, 2021
-    //             </Typography>
-    //           </div>
-    //         </div>
-
-    //         {/* ///////////////up and down vote */}
-    //         <div className={classes.cardHeadRight}>
-    //           <div className={classes.voteContainer}>
-    //             <img
-    //               src={upvotetIcon}
-    //               alt="upvote"
-    //               className={classes.voteImg}
-    //             />
-    //             <Typography className={classes.voteValue} variant="h5">
-    //               20
-    //             </Typography>
-    //           </div>
-    //           <div className={classes.voteContainer}>
-    //             <img
-    //               src={downvoteIcon}
-    //               alt="upvote"
-    //               className={classes.voteImg}
-    //             />
-    //             <Typography className={classes.voteValue} variant="h5">
-    //               5
-    //             </Typography>
-    //           </div>
-    //         </div>
-    //       </div>
-
-    //       {/* End of the head session */}
-    //       <hr />
-    //       <Typography variant="body1" component="p">
-    //         the chip will not be clickable, even if onClick prop is defined.
-    //         This can be used, for example, along with the component prop to
-    //         indicate an anchor Chip is clickable
-    //       </Typography>
-    //     </CardContent>
-    //     <CardMedia
-    //       className={classes.media}
-    //       image={imageLink}
-    //       title="Contemplative Reptile"
-    //     />
-    //     <div className={classes.commentSection}>
-    //       <img
-    //         src={colorlike}
-    //         alt="like button"
-    //         className={classes.colorlike}
-    //       />
-    //       <Typography variant="body2">{likeNo}</Typography>
-    //       <Typography variant="body2">{`${commentNo} comments`}</Typography>
-    //     </div>
-    //     <hr />
-    //   </CardActionArea>
-    //   <CardActions className={classes.postActionsContainer}>
-    //     <Button className={classes.actionBtnContainer}>
-    //       <img src={likeIcon} alt="likeIcon" className={classes.actionIcon} />
-    //       <Typography variant="body1" color="textSecondary">
-    //         Like
-    //       </Typography>
-    //     </Button>
-    //     <Button
-    //       className={classes.actionBtnContainer}
-    //       onClick={handleClickOpenComment}
-    //     >
-    //       <img
-    //         src={commentIcon}
-    //         alt="likeIcon"
-    //         className={classes.actionIcon}
-    //       />
-    //       <Typography variant="body1" color="textSecondary">
-    //         Comments
-    //       </Typography>
-    //     </Button>
-    //     <Button className={classes.actionBtnContainer}>
-    //       <img src={shareIcon} alt="likeIcon" className={classes.actionIcon} />
-    //       <Typography variant="body1" color="textSecondary">
-    //         Share
-    //       </Typography>
-    //     </Button>
-    //   </CardActions>
-    //   {openComment && <AskComment />}
-    // </Card>
+  
   );
 }
